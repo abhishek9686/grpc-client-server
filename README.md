@@ -1,4 +1,4 @@
-# gRpc User server/client
+# gRpc User client/server
 
 ## To build the application
 
