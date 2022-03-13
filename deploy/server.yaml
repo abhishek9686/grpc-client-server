@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    apps: users
+    type: 'grpc-users'
+  name: users
+spec:
+  type: NodePort
+  selector:
+    app: users
+    type: 'grpc-users'
+  ports:
+    - name: users
+      port: 80
+      targetPort: 8008
+      nodePort: 30031
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+      type: 'grpc-users'
+  template:
+    metadata:
+      labels:
+        app: users
+        type: 'grpc-users'
+    spec:
+      containers:
+        - name: users
+          image: abhi9686/users:v1
+          stdin: true
+          tty: true
+          ports:
+            - containerPort: 8008

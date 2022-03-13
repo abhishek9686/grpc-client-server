@@ -1,0 +1,9 @@
+FROM alpine:latest
+
+COPY ./usersServer.linux /usersServer
+
+RUN chmod a+x /usersServer
+
+ENTRYPOINT [ "/usersServer" ]
+
+EXPOSE 8008
